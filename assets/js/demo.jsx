@@ -60,7 +60,7 @@ class Demo extends React.Component {
             tiles[i].clicked = true;
             tiles[cur].done = true;
             tiles[i].done = true;
-            this.setState({tiles}});
+            this.setState({...this.state,tiles});
             return tiles[i];
           }
           else {
@@ -68,7 +68,7 @@ class Demo extends React.Component {
               const tiles = this.state.tiles.slice();
               tiles[cur].clicked = false;
               tiles[i].clicked = false;
-              this.setState({tiles}});
+              this.setState({...this.state,tiles});
               return tiles[i];
             }, 1000);
           }
