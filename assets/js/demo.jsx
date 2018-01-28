@@ -129,6 +129,6 @@ function TileItem(props) {
     return <div className="col-4">Done</div>;
   }
   else {
-    return <div className="d-none col-4" onClick={() => props.markItem(item.name)}>{item.name}</div>;
+    return <div className="col-4" onClick={() => props.markItem(item.name)}>{item.name}</div>;
   }
 }
