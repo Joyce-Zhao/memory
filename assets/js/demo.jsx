@@ -104,30 +104,9 @@ class Demo extends React.Component {
     });
     return (
       <div>
-        <div className="board-row">
-            {this.tile_list(0)}
-            {this.tile_list(1)}
-            {this.tile_list(2)}
-            {this.tile_list(3)}
-          </div>
-          <div className="board-row">
-            {this.tile_list(4)}
-            {this.tile_list(5)}
-            {this.tile_list(6)}
-            {this.tile_list(7)}
-          </div>
-          <div className="board-row">
-            {this.tile_list(8)}
-            {this.tile_list(9)}
-            {this.tile_list(10)}
-            {this.tile_list(11)}
-          </div>
-          <div className="board-row">
-            {this.tile_list(12)}
-            {this.tile_list(13)}
-            {this.tile_list(14)}
-            {this.tile_list(15)}
-          </div>
+        <div className="row">
+          {tile_list}
+        </div>
       <div>
           <h2>
             Current Number of Clicks : {this.state.clicknum}
@@ -146,6 +125,9 @@ class Demo extends React.Component {
 
 function TileItem(props) {
   let item = props.item;
+  if (!item.clicked) {
+    return <div className="col-5">null</div>;
+  }
   if (item.done) {
     return <div className="col-5">Done</div>;
   }
