@@ -126,9 +126,9 @@ class Demo extends React.Component {
 function TileItem(props) {
   let item = props.item;
   if (item.done) {
-    return <div className="col">Done</div>;
+    return <div className="col-4">Done</div>;
   }
   else {
-    return <div class=".d-none col" onClick={() => props.markItem(item.name)}>{item.name}</div>;
+    return <div class="d-none col-4" onClick={() => props.markItem(item.name)}>{item.name}</div>;
   }
 }
