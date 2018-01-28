@@ -43,21 +43,23 @@ class Demo extends React.Component {
     };
   }
 
-  markItem(name) {
+  markItem(i) {
     let xs = _.map(this.state.items, (item) => {
       clicknum += 1;
       item.hidden = false;
-      if (item.name == name) {
+      if (item.count == i) {
         if (guess != -1) {
           let cur = guess;
           guess = -1;
           if (item.name == name) {
-            return _.extend(tiles[cur], {clicked: true, done: true});
+            this.setState({this.state.tiles[cur]:{clicked: true, done: true}})
+            return _.extend(tiles[i], {clicked: true, done: true});
           }
           else {
-            tiles[cur].hidden = true;
-            tiles[item.count].hidden = true;
-            return _.extend(tiles[cur], {clicked: false});
+            setTimeout(() => {
+              this.setState({this.state.tiles[cur]:{clicked: false}})
+              return _.extend(tiles[i], {clicked: false});
+            }, 1000);
           }
         }
         else {
@@ -96,42 +98,42 @@ class Demo extends React.Component {
       ],
     }
   );
-  }
+}
 
-  render() {
-    let tile_list = _.map(this.state.tiles, (item) => {
-      return <TileItem item={item} markItem={this.markItem.bind(this)} />;
-    });
-    return (
-      <div>
-        <div className="row">
-          {tile_list}
-        </div>
-      <div>
-          <h2>
-            Current Number of Clicks : {this.state.clicknum}
-          </h2>
-          <h2>
-            Current Score : {Math.round(30 - this.state.clicknum)}
-          </h2>
-        </div>
-        <button type="button" className={"btn btn-primary"} onClick={this.replay}>
-          {"Replay"}
-        </button>
+render() {
+  let tile_list = _.map(this.state.tiles, (item) => {
+    return <TileItem item={item} markItem={this.markItem.bind(this)} />;
+  });
+  return (
+    <div>
+      <div className="row">
+        {tile_list}
       </div>
-    );
-  }
+      <div>
+        <h2>
+          Current Number of Clicks : {this.state.clicknum}
+        </h2>
+        <h2>
+          Current Score : {Math.round(30 - this.state.clicknum)}
+        </h2>
+      </div>
+      <button type="button" className={"btn btn-primary"} onClick={this.replay}>
+        {"Replay"}
+      </button>
+    </div>
+  );
+}
 }
 
 function TileItem(props) {
   let item = props.item;
   if (!item.clicked) {
     return <div className="col-5 tilescell"></div>;
-  }
-  if (item.done) {
-    return <div className="col-5 tilescell">Done</div>;
-  }
-  else {
-    return <div className="col-5 tilescell" onClick={() => props.markItem(item.name)}>{item.name}</div>;
-  }
-}
+    }
+    if (item.done) {
+      return <div className="col-5 tilescell">Done</div>;
+      }
+      else {
+        return <div className="col-5 tilescell" onClick={() => props.markItem(item.count)}>{item.name}</div>;
+        }
+      }
