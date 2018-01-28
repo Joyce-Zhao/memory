@@ -106,27 +106,6 @@ class Demo extends React.Component {
       <div>
       <div className="row">
         {tile_list}
-        /*
-        <div className="col">A</div>
-        <div className="col">B</div>
-        <div className="col">C</div>
-        <div className="col">C</div>
-        <div className="w-100"></div>
-        <div className="col">D</div>
-        <div className="col">E</div>
-        <div className="col">F</div>
-        <div className="col">F</div>
-        <div className="w-100"></div>
-        <div className="col">G</div>
-        <div className="col">H</div>
-        <div className="col">A</div>
-        <div className="col">B</div>
-        <div className="w-100"></div>
-        <div className="col">D</div>
-        <div className="col">E</div>
-        <div className="col">G</div>
-        <div className="col">H</div>
-        */
       </div>
       <div>
           <h2>
@@ -147,9 +126,9 @@ class Demo extends React.Component {
 function TileItem(props) {
   let item = props.item;
   if (item.done) {
-    return <div className="col-lg">Done</div>;
+    return <div className="col">Done</div>;
   }
   else {
-    return <div className=".d-none col-lg" onClick={() => props.markItem(item.name)}>{item.name}</div>;
+    return <div class=".d-none col" onClick={() => props.markItem(item.name)}>{item.name}</div>;
   }
 }
