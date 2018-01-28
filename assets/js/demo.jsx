@@ -77,22 +77,22 @@ class Demo extends React.Component {
       clicknum: 0,
       guess: "",
       tiles:  [
-        { name: "A", count: 1, clicked: false, done: false }
-        { name: "B", count: 2, clicked: false, done: false }
-        { name: "C", count: 3, clicked: false, done: false }
-        { name: "D", count: 4, clicked: false, done: false }
-        { name: "E", count: 5, clicked: false, done: false }
-        { name: "F", count: 6, clicked: false, done: false }
-        { name: "G", count: 7, clicked: false, done: false }
-        { name: "H", count: 8, clicked: false, done: false }
-        { name: "A", count: 9, clicked: false, done: false }
-        { name: "B", count: 10, clicked: false, done: false }
-        { name: "C", count: 11, clicked: false, done: false }
-        { name: "D", count: 12, clicked: false, done: false }
-        { name: "E", count: 13, clicked: false, done: false }
-        { name: "F", count: 14, clicked: false, done: false }
-        { name: "G", count: 15, clicked: false, done: false }
-        { name: "H", count: 16, clicked: false, done: false }
+        { name: "A", count: 1, clicked: false, done: false },
+        { name: "B", count: 2, clicked: false, done: false },
+        { name: "C", count: 3, clicked: false, done: false },
+        { name: "D", count: 4, clicked: false, done: false },
+        { name: "E", count: 5, clicked: false, done: false },
+        { name: "F", count: 6, clicked: false, done: false },
+        { name: "G", count: 7, clicked: false, done: false },
+        { name: "H", count: 8, clicked: false, done: false },
+        { name: "A", count: 9, clicked: false, done: false },
+        { name: "B", count: 10, clicked: false, done: false },
+        { name: "C", count: 11, clicked: false, done: false },
+        { name: "D", count: 12, clicked: false, done: false },
+        { name: "E", count: 13, clicked: false, done: false },
+        { name: "F", count: 14, clicked: false, done: false },
+        { name: "G", count: 15, clicked: false, done: false },
+        { name: "H", count: 16, clicked: false, done: false },
       ],
     }
   );
