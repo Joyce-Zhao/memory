@@ -100,7 +100,7 @@ class Demo extends React.Component {
 
   render() {
     let tile_list = _.map(this.state.tiles, (item) => {
-      return <TileItem item={item} markItem={this.markItem.bind(this)} />;
+      return <TileItem item={item} markItem={this.markItem.bind(this) display={"none"}} />;
     });
     return (
       <div>
@@ -150,6 +150,6 @@ function TileItem(props) {
     return <div className="col-lg">Done</div>;
   }
   else {
-    return <div className="col-lg" display: none onClick={() => props.markItem(item.name)}>item.name</div>;
+    return <div className="col-lg" onClick={() => props.markItem(item.name)}>item.name</div>;
   }
 }
