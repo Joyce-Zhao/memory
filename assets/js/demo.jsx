@@ -56,8 +56,12 @@ class Demo extends React.Component {
           let cur = guess;
           guess = -1;
           if (item.name == name) {
-            this.setState({tiles[cur]:{clicked: true, done: true}});
-            return _.extend(tiles[i], {clicked: true, done: true});
+            const tiles = this.state.tiles.slice();
+            tiles[i].clicked = true;
+            tiles[cur].done = true;
+            tiles[i].done = true;
+            this.setState({...this.state, tiles}});
+            return tiles[i];
           }
           else {
             setTimeout(() => {
