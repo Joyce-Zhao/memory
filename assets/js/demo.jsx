@@ -23,22 +23,22 @@ class Demo extends React.Component {
       clicknum: 0,
       guess: -1,
       tiles:  [
-        { name: "A", count: 1, clicked: false, done: false },
-        { name: "B", count: 2, clicked: false, done: false },
-        { name: "C", count: 3, clicked: false, done: false },
-        { name: "D", count: 4, clicked: false, done: false },
-        { name: "E", count: 5, clicked: false, done: false },
-        { name: "F", count: 6, clicked: false, done: false },
-        { name: "G", count: 7, clicked: false, done: false },
-        { name: "H", count: 8, clicked: false, done: false },
-        { name: "A", count: 9, clicked: false, done: false },
-        { name: "B", count: 10, clicked: false, done: false },
-        { name: "C", count: 11, clicked: false, done: false },
-        { name: "D", count: 12, clicked: false, done: false },
-        { name: "E", count: 13, clicked: false, done: false },
-        { name: "F", count: 14, clicked: false, done: false },
-        { name: "G", count: 15, clicked: false, done: false },
-        { name: "H", count: 16, clicked: false, done: false },
+        { name: "A", count: 0, clicked: false, done: false },
+        { name: "B", count: 1, clicked: false, done: false },
+        { name: "C", count: 2, clicked: false, done: false },
+        { name: "D", count: 3, clicked: false, done: false },
+        { name: "E", count: 4, clicked: false, done: false },
+        { name: "F", count: 5, clicked: false, done: false },
+        { name: "G", count: 6, clicked: false, done: false },
+        { name: "H", count: 7, clicked: false, done: false },
+        { name: "A", count: 8, clicked: false, done: false },
+        { name: "B", count: 9, clicked: false, done: false },
+        { name: "C", count: 10, clicked: false, done: false },
+        { name: "D", count: 11, clicked: false, done: false },
+        { name: "E", count: 12, clicked: false, done: false },
+        { name: "F", count: 13, clicked: false, done: false },
+        { name: "G", count: 14, clicked: false, done: false },
+        { name: "H", count: 15, clicked: false, done: false },
       ],
     };
   }
@@ -77,22 +77,22 @@ class Demo extends React.Component {
       clicknum: 0,
       guess: "",
       tiles:  [
-        { name: "A", count: 1, clicked: false, done: false },
-        { name: "B", count: 2, clicked: false, done: false },
-        { name: "C", count: 3, clicked: false, done: false },
-        { name: "D", count: 4, clicked: false, done: false },
-        { name: "E", count: 5, clicked: false, done: false },
-        { name: "F", count: 6, clicked: false, done: false },
-        { name: "G", count: 7, clicked: false, done: false },
-        { name: "H", count: 8, clicked: false, done: false },
-        { name: "A", count: 9, clicked: false, done: false },
-        { name: "B", count: 10, clicked: false, done: false },
-        { name: "C", count: 11, clicked: false, done: false },
-        { name: "D", count: 12, clicked: false, done: false },
-        { name: "E", count: 13, clicked: false, done: false },
-        { name: "F", count: 14, clicked: false, done: false },
-        { name: "G", count: 15, clicked: false, done: false },
-        { name: "H", count: 16, clicked: false, done: false },
+        { name: "A", count: 0, clicked: false, done: false },
+        { name: "B", count: 1, clicked: false, done: false },
+        { name: "C", count: 2, clicked: false, done: false },
+        { name: "D", count: 3, clicked: false, done: false },
+        { name: "E", count: 4, clicked: false, done: false },
+        { name: "F", count: 5, clicked: false, done: false },
+        { name: "G", count: 6, clicked: false, done: false },
+        { name: "H", count: 7, clicked: false, done: false },
+        { name: "A", count: 8, clicked: false, done: false },
+        { name: "B", count: 9, clicked: false, done: false },
+        { name: "C", count: 10, clicked: false, done: false },
+        { name: "D", count: 11, clicked: false, done: false },
+        { name: "E", count: 12, clicked: false, done: false },
+        { name: "F", count: 13, clicked: false, done: false },
+        { name: "G", count: 14, clicked: false, done: false },
+        { name: "H", count: 15, clicked: false, done: false },
       ],
     }
   );
@@ -104,9 +104,30 @@ class Demo extends React.Component {
     });
     return (
       <div>
-      <div className="row">
-        {tile_list}
-      </div>
+        <div className="board-row">
+            {this.tile_list(0)}
+            {this.tile_list(1)}
+            {this.tile_list(2)}
+            {this.tile_list(3)}
+          </div>
+          <div className="board-row">
+            {this.tile_list(4)}
+            {this.tile_list(5)}
+            {this.tile_list(6)}
+            {this.tile_list(7)}
+          </div>
+          <div className="board-row">
+            {this.tile_list(8)}
+            {this.tile_list(9)}
+            {this.tile_list(10)}
+            {this.tile_list(11)}
+          </div>
+          <div className="board-row">
+            {this.tile_list(12)}
+            {this.tile_list(13)}
+            {this.tile_list(14)}
+            {this.tile_list(15)}
+          </div>
       <div>
           <h2>
             Current Number of Clicks : {this.state.clicknum}
@@ -126,9 +147,9 @@ class Demo extends React.Component {
 function TileItem(props) {
   let item = props.item;
   if (item.done) {
-    return <div className="col-4">Done</div>;
+    return <div className="col-5">Done</div>;
   }
   else {
-    return <div className="col-4" onClick={() => props.markItem(item.name)}>{item.name}</div>;
+    return <div className="col-5" onClick={() => props.markItem(item.name)}>{item.name}</div>;
   }
 }
