@@ -9,7 +9,7 @@ export default function run_demo(root) {
 // App state for Memory is:
 // {
 //    clicknum: Number     // the number of clicks
-//    guess:    String     // the letter associated with the first tile clicked
+//    guess:    Number     // the letter associated with the first tile clicked
 //    tiles:  [List of TileItem]
 // }
 //
@@ -21,7 +21,7 @@ class Demo extends React.Component {
     super(props);
     this.state = {
       clicknum: 0,
-      guess: "",
+      guess: -1,
       tiles:  [
         { name: "A", count: 1, clicked: false, done: false },
         { name: "B", count: 2, clicked: false, done: false },
@@ -46,22 +46,22 @@ class Demo extends React.Component {
   markItem(name) {
     let xs = _.map(this.state.items, (item) => {
       clicknum += 1;
-      item.style.display = "block";
+      item.hidden = false;
       if (item.name == name) {
-        if (guess != "") {
+        if (guess != -1) {
           let cur = guess;
-          guess = "";
-          if (item.name == cur) {
-            return _.extend(document.getElementsByName(item.name), {clicked: true, done: true});
+          guess = -1;
+          if (item.name == name) {
+            return _.extend(tiles[cur], {clicked: true, done: true});
           }
           else {
-            document.getElementsByName(cur).style.display = "none";
-            document.getElementsByName(item.name).style.display = "none";
-            return _.extend(document.getElementsByName(cur), {clicked: false});
+            tiles[cur].hidden = true;
+            tiles[item.count].hidden = true;
+            return _.extend(tiles[cur], {clicked: false});
           }
         }
         else {
-          guess = item.name;
+          guess = item.count;
           return _.extend(item, {clicked: true});
         }
       }
