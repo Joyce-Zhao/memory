@@ -19,7 +19,11 @@ export default function run_demo(root) {
 class Demo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.initialState();
+  }
+
+  initialState(){
+    return{
       clicknum: 0,
       guess: -1,
       tiles:  [
@@ -57,8 +61,11 @@ class Demo extends React.Component {
           }
           else {
             setTimeout(() => {
-              this.setState({tiles[cur]:{clicked: false}});
-              return _.extend(tiles[i], {clicked: false});
+              const tiles = this.state.tiles.slice();
+              tiles[cur].clicked = false;
+              tiles[i].clicked = false;
+              this.setState({...this.state, tiles}});
+              return tiles[i];
             }, 1000);
           }
         }
@@ -75,29 +82,7 @@ class Demo extends React.Component {
   }
 
   replay() {
-    this.setState({
-      clicknum: 0,
-      guess: "",
-      tiles:  [
-        { name: "A", count: 0, clicked: false, done: false },
-        { name: "B", count: 1, clicked: false, done: false },
-        { name: "C", count: 2, clicked: false, done: false },
-        { name: "D", count: 3, clicked: false, done: false },
-        { name: "E", count: 4, clicked: false, done: false },
-        { name: "F", count: 5, clicked: false, done: false },
-        { name: "G", count: 6, clicked: false, done: false },
-        { name: "H", count: 7, clicked: false, done: false },
-        { name: "A", count: 8, clicked: false, done: false },
-        { name: "B", count: 9, clicked: false, done: false },
-        { name: "C", count: 10, clicked: false, done: false },
-        { name: "D", count: 11, clicked: false, done: false },
-        { name: "E", count: 12, clicked: false, done: false },
-        { name: "F", count: 13, clicked: false, done: false },
-        { name: "G", count: 14, clicked: false, done: false },
-        { name: "H", count: 15, clicked: false, done: false },
-      ],
-    }
-  );
+    this.setState(this.initialState());
 }
 
 render() {
