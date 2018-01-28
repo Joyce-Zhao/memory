@@ -52,12 +52,12 @@ class Demo extends React.Component {
           let cur = guess;
           guess = -1;
           if (item.name == name) {
-            this.setState({this.state.tiles[cur]:{clicked: true, done: true}})
+            this.setState({tiles[cur]:{clicked: true, done: true}});
             return _.extend(tiles[i], {clicked: true, done: true});
           }
           else {
             setTimeout(() => {
-              this.setState({this.state.tiles[cur]:{clicked: false}})
+              this.setState({tiles[cur]:{clicked: false}});
               return _.extend(tiles[i], {clicked: false});
             }, 1000);
           }
