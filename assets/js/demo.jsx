@@ -126,12 +126,12 @@ class Demo extends React.Component {
 function TileItem(props) {
   let item = props.item;
   if (!item.clicked) {
-    return <div className="col-5">null</div>;
+    return <div className="col-5 tilescell"></div>;
   }
   if (item.done) {
-    return <div className="col-5">Done</div>;
+    return <div className="col-5 tilescell">Done</div>;
   }
   else {
-    return <div className="col-5" onClick={() => props.markItem(item.name)}>{item.name}</div>;
+    return <div className="col-5 tilescell" onClick={() => props.markItem(item.name)}>{item.name}</div>;
   }
 }
