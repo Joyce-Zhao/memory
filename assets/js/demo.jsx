@@ -48,6 +48,7 @@ class Demo extends React.Component {
   }
 
   markItem(i) {
+    console.log("123");
     let xs = _.map(this.state.items, (item) => {
       clicknum += 1;
       item.hidden = false;
