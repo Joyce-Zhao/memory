@@ -46,18 +46,24 @@ class Demo extends React.Component {
       ],
     };
   }
+  
+   replay() {
+    this.setState(this.initialState.bind(this));
+}
 
   markItem(i) {
-    console.log("123");
-    let xs = _.map(this.state.items, (item) => {
-      clicknum += 1;
-      item.hidden = false;
+    //console.log(i);
+    let xs = _.map(this.state.tiles, (item) => {
+      this.setState({clicknum: this.state.clicknum + 1});
+      console.log(clicknum);
+      console.log(guess);
       if (item.count == i) {
         if (guess != -1) {
           let cur = guess;
           guess = -1;
-          if (item.name == name) {
-            const tempTiles = this.state.tiles.slice();
+          const tempTiles = this.state.tiles;
+          console.log(tempTiles);
+          if (item.name == tiles[cur].name) {
             tempTiles[i].clicked = true;
             tempTiles[cur].done = true;
             tempTiles[i].done = true;
@@ -66,7 +72,6 @@ class Demo extends React.Component {
           }
           else {
             setTimeout(() => {
-              const tempTiles = this.state.tiles.slice();
               tempTiles[cur].clicked = false;
               tempTiles[i].clicked = false;
               this.setState({tiles:tempTiles});
@@ -85,10 +90,6 @@ class Demo extends React.Component {
     });
     this.setState({ items: xs });
   }
-
-  replay() {
-    this.setState(this.initialState());
-}
 
 render() {
   let tile_list = _.map(this.state.tiles, (item) => {
@@ -118,7 +119,7 @@ render() {
 function TileItem(props) {
   let item = props.item;
   if (!item.clicked) {
-    return <div className="col-3 tilescell"></div>;
+    return <div className="col-3 tilescell" onClick={() => props.markItem(item.count)}></div>;
     }
     if (item.done) {
       return <div className="col-3 tilescell">Done</div>;
