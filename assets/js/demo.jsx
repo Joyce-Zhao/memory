@@ -57,8 +57,6 @@ class Demo extends React.Component {
     let xs = _.map(this.state.tiles, (item) => {
       this.setState({clicknum: this.state.clicknum + 1});
       console.log(this.state.guess);
-      if (item.count == i) {
-        console.log(item.count);
         if (this.state.guess != -1) {
           let cur = this.state.guess;
           this.setState({guess: -1});
@@ -69,27 +67,24 @@ class Demo extends React.Component {
             tempTiles[cur].done = true;
             tempTiles[i].done = true;
             this.setState({tiles:tempTiles});
-            return this.state.tiles[i];
+            console.log(tempTiles);
           }
           else {
             setTimeout(() => {
               tempTiles[cur].clicked = false;
               tempTiles[i].clicked = false;
               this.setState({tiles:tempTiles});
-              return this.state.tiles[i];
             }, 1000);
           }
         }
         else {
-          this.setState({guess: item.count});
-          return _.extend(item, {clicked: true});
+          const tempTiles = this.state.tiles;
+          tempTiles[i].clicked = true;
+          console.log(tempTiles);
+          this.setState({guess: item.count, tiles:tempTiles});
         }
       }
-      else {
-        return item;
-      }
-    });
-    this.setState({ items: xs });
+    );
   }
 
 render() {
