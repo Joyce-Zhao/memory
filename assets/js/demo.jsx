@@ -56,13 +56,11 @@ class Demo extends React.Component {
     if (this.state.tiles[i].clicked == true) return;
     let xs = _.map(this.state.tiles, (item) => {
       this.setState({clicknum: this.state.clicknum + 1});
-      console.log(this.state.guess);
         if (this.state.guess != -1) {
           let cur = this.state.guess;
           this.setState({guess: -1});
           const tempTiles = this.state.tiles;
-          console.log(tempTiles);
-          if (item.name == tiles[cur].name) {
+          if (item.name == tempTiles[cur].name) {
             tempTiles[i].clicked = true;
             tempTiles[cur].done = true;
             tempTiles[i].done = true;
