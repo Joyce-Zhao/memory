@@ -65,6 +65,8 @@ class Demo extends React.Component {
             console.log(tempTiles);
           }
           else {
+            tempTiles[i].clicked = true;
+            this.setState({tiles:tempTiles});
             setTimeout(() => {
               tempTiles[cur].clicked = false;
               tempTiles[i].clicked = false;
