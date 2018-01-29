@@ -46,18 +46,20 @@ class Demo extends React.Component {
       ],
     };
   }
-  
+
    replay() {
     this.setState(this.initialState.bind(this));
 }
 
   markItem(i) {
     //console.log(i);
+    if (this.state.tiles[i].clicked == true) return;
     let xs = _.map(this.state.tiles, (item) => {
       this.setState({clicknum: this.state.clicknum + 1});
       console.log(clicknum);
       console.log(guess);
       if (item.count == i) {
+        console.log(item.count);
         if (guess != -1) {
           let cur = guess;
           guess = -1;
