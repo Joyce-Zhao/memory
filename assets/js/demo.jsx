@@ -52,8 +52,6 @@ class Demo extends React.Component {
 }
 
   markItem(i) {
-    //console.log(i);
-    if (this.state.tiles[i].clicked == true) return;
     let xs = _.map(this.state.tiles, (item) => {
       this.setState({clicknum: this.state.clicknum + 1});
         if (this.state.guess != -1) {
