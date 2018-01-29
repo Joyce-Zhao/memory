@@ -1,14 +1,18 @@
 /* This file is for your main application css. */
-
 @import "bootstrap";
 
-h1 { text-align: center; }
+* {
+  text-align: center;
+  font-family: verdana;
+  box-sizing: border-box;
+}
+
 body {
   background-color: lightgray;
 }
-.tilescell{
-  border: 1px solid gray;
+
+.tilescell {
+  border: 1px solid black;
   font-size: 150%;
-  padding: 10px 10px;
-  text-align: center;
+  padding: 10px;
 }
