@@ -56,13 +56,12 @@ class Demo extends React.Component {
     if (this.state.tiles[i].clicked == true) return;
     let xs = _.map(this.state.tiles, (item) => {
       this.setState({clicknum: this.state.clicknum + 1});
-      console.log(clicknum);
-      console.log(guess);
+      console.log(this.state.guess);
       if (item.count == i) {
         console.log(item.count);
-        if (guess != -1) {
-          let cur = guess;
-          guess = -1;
+        if (this.state.guess != -1) {
+          let cur = this.state.guess;
+          this.setState({guess: -1});
           const tempTiles = this.state.tiles;
           console.log(tempTiles);
           if (item.name == tiles[cur].name) {
@@ -82,7 +81,7 @@ class Demo extends React.Component {
           }
         }
         else {
-          guess = item.count;
+          this.setState({guess: item.count});
           return _.extend(item, {clicked: true});
         }
       }
