@@ -69,14 +69,14 @@ class Demo extends React.Component {
             tempTiles[cur].done = true;
             tempTiles[i].done = true;
             this.setState({tiles:tempTiles});
-            return tiles[i];
+            return this.state.tiles[i];
           }
           else {
             setTimeout(() => {
               tempTiles[cur].clicked = false;
               tempTiles[i].clicked = false;
               this.setState({tiles:tempTiles});
-              return tiles[i];
+              return this.state.tiles[i];
             }, 1000);
           }
         }
@@ -109,7 +109,7 @@ render() {
           Current Score : {Math.round(30 - this.state.clicknum)}
         </h2>
       </div>
-      <button type="button" className={"btn btn-primary"} onClick={this.replay}>
+      <button type="button" className={"btn btn-primary"} onClick={() => this.replay()}>
         {"Replay"}
       </button>
     </div>
