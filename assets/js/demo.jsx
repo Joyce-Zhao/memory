@@ -115,7 +115,7 @@ function TileItem(props) {
   if (!item.clicked) {
     return <div className="col-3 tilescell" onClick={() => props.markItem(item.count)}></div>;
     }
-    if (item.done) {
+    if (item.clicked && item.done) {
       return <div className="col-3 tilescell">Done</div>;
       }
       else {
