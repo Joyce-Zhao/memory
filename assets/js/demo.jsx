@@ -138,13 +138,9 @@ function TileItem(props) {
   let index = props.index;
   let state = props.state;
 
-  let item = _.map(state.skel, (xx, ii) => {
-    return <span style={{padding: "1ex"}} key={ii}>{xx}</span>;
-  });
-
   return (
   <div className="col-3 tilescell"
-    onClick={() => props.sendGuess(index)}>{item}</div>;);
+    onClick={() => props.sendGuess(index)}>{state.skel[index]}</div>);
 }
   /*
   let item = props.tiles[index];
