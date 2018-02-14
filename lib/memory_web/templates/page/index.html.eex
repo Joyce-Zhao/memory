@@ -1,8 +1,7 @@
 <h1>Memory Game</h1>
 
-<div id="game">
-  Loading...
+<div class="row">
+  <div class="col">
+    <h2 id="index-page">Join a Game</h2>
+  </div>
 </div>
-
-
-

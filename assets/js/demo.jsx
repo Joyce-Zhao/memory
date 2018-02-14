@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
-export default function run_demo(root) {
-  ReactDOM.render(<Demo />, root);
+export default function run_demo(root,channel) {
+  ReactDOM.render(<Demo channel={channel} />, root);
 }
 
 // App state for Memory is:
@@ -19,11 +19,17 @@ export default function run_demo(root) {
 class Demo extends React.Component {
   constructor(props) {
     super(props);
+    this.channel = props.channel;
     this.state = this.initialState();
+
+    this.channel.join()
+        .receive("ok", this.gotView.bind(this))
+        .receive("error", resp => { console.log("Unable to join", resp) });
   }
 
   initialState(){
     return{
+      skel: [],
       clicknum: 0,
       guess: -1,
       tiles:  [
@@ -47,10 +53,28 @@ class Demo extends React.Component {
     };
   }
 
-   replay() {
-    this.setState(this.initialState.bind(this));
-}
+  gotView(view) {
+    console.log("New view", view);
+    this.setState(view.game);
+    if (view.game.guess != -1) {
+      setTimeout(() => {
+        this.flipBack(view.game)
+     }, 500)
+   }
+ }
 
+ sendGuess(index) {
+    this.channel.push("guess", {index: index}).receive("ok", this.gotView.bind(this));
+  }
+
+  flipBack(game) {
+    this.channel.push("flip_back", {game: game}).receive("ok", this.gotView.bind(this))
+  }
+
+  replay() {
+    this.channel.push("restart", {"renew": true}).receive("ok", this.gotView.bind(this))
+}
+/*
   markItem(i) {
       this.setState({clicknum: this.state.clicknum + 1});
         if (this.state.guess != -1) {
@@ -81,10 +105,12 @@ class Demo extends React.Component {
           this.setState({guess: i, tiles:tempTiles});
         }
   }
+  */
 
 render() {
-  let tile_list = _.map(this.state.tiles, (item) => {
-    return <TileItem item={item} markItem={this.markItem.bind(this)} />;
+  let tile_list = _.map(this.state.tiles, (index) => {
+    return <TileItem key={index} index={index}
+      sendGuess={this.sendGuess.bind(this)} />;
   });
   return (
     <div>
@@ -108,14 +134,15 @@ render() {
 }
 
 function TileItem(props) {
-  let item = props.item;
+  let index = props.index;
+  let item = props.tiles[index];
   if (!item.clicked) {
-    return <div className="col-3 tilescell" onClick={() => props.markItem(item.count)}></div>;
+    return <div className="col-3 tilescell" onClick={() => props.sendGuess(index)}></div>;
     }
     if (item.clicked && item.done) {
       return <div className="col-3 tilescell">Done</div>;
       }
       else {
-        return <div className="col-3 tilescell" onClick={() => props.markItem(item.count)}>{item.name}</div>;
+        return <div className="col-3 tilescell" onClick={() => props.sendGuess(sendGuess)}>{item.name}</div>;
         }
       }
