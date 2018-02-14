@@ -20,10 +20,9 @@ defmodule Memory.Game do
 end
 
   def skeleton(tiles) do
-    show = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-    Enum.map show, fn t ->
-      if tiles[t].clicked == true or tiles[t].done == true do
-        tiles[t].name
+    Enum.map tiles, fn t ->
+      if t.clicked == true or t.done == true do
+        t.name
       else
         "_"
       end
