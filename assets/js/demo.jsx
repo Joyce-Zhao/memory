@@ -109,7 +109,7 @@ class Demo extends React.Component {
   */
 
 render() {
-  let tile_list = _.map(this.state.tiles, (index) => {
+  let tile_list = _.map(this.state.tiles, (obj,index) => {
     return <TileItem key={index} index={index} state = {this.state}
       sendGuess={this.sendGuess.bind(this)} />;
   });

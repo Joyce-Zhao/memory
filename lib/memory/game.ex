@@ -20,12 +20,10 @@ defmodule Memory.Game do
 end
 
   def skeleton(tiles) do
-    show = [a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p]
-    nums = %{a: 0,b: 1,c: 2,d: 3,e: 4,f: 5,g: 6,h: 7,i: 8,j: 9,k: 10,l: 11,m: 12,n: 13,o: 14,p: 15}
+    show = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     Enum.map show, fn t ->
-      s = Map.get(nums,t)
-      if tiles[s].clicked == true or tiles[s].done == true do
-        tiles[s].name
+      if Enum.at(tiles,t).clicked == true or Enum.at(tiles,t).done == true do
+        Enum.at(tiles,t).name
       else
         "_"
       end
@@ -35,10 +33,10 @@ end
   def guess(game, index) do
     ts = game.tiles
     gs = game.guess
-    if ts[index].clicked == false
-    and ts[index].done == false do
+    if Enum.at(ts,index).clicked == false
+    and Enum.at(ts,index).done == false do
       cs = game.clicknum + 1
-      ts = List.replace_at(ts, index, %{ts[index] | clicked: true})
+      ts = List.replace_at(ts, index, %{Enum.at(ts,index) | clicked: true})
     else
       cs = game.clicknum
     end
@@ -49,14 +47,14 @@ end
 
     cond do
       gs == -1 -> Map.put(game, :guess, index)
-      Kernel.abs(ts[gs].count - ts[index].count) == 8 ->
+      Kernel.abs(Enum.at(ts,gs).count - Enum.at(ts,index).count) == 8 ->
         ts
-        |> List.replace_at(index, %{ts[index] | done: true})
-        |> List.replace_at(gs, %{ts[gs] | done: true})
+        |> List.replace_at(index, %{Enum.at(ts,index) | done: true})
+        |> List.replace_at(gs, %{Enum.at(ts,gs) | done: true})
       true ->
         ts
-        |> List.replace_at(index, %{ts[index] | clicked: false})
-        |> List.replace_at(gs, %{ts[gs] | clicked: false})
+        |> List.replace_at(index, %{Enum.at(ts,index) | clicked: false})
+        |> List.replace_at(gs, %{Enum.at(ts,gs) | clicked: false})
     end
 
     game
@@ -66,6 +64,7 @@ end
   end
 
   def flip_back(game) do
+    
     Map.put(game, :guess, -1)
   end
 
