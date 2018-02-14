@@ -3,14 +3,14 @@ defmodule Memory.Game do
     %{
       tiles: next_tiles(),
       guess: -1,
-      clicknum: 0,
+      clicks: 0,
     }
   end
 
   def client_view(game) do
     ts = game.tiles
     gs = game.guess
-    cs = game.clicknum
+    cs = game.clicks
     %{
       tiles: ts,
       skel: skeleton(ts),
@@ -33,38 +33,35 @@ end
   def guess(game, index) do
     ts = game.tiles
     gs = game.guess
-    if Enum.at(ts,index).clicked == false
-    and Enum.at(ts,index).done == false do
-      cs = game.clicknum + 1
+    if Enum.at(ts,index).clicked == false and Enum.at(ts,index).done == false do
+      cs = game.clicks + 1
       ts = List.replace_at(ts, index, %{Enum.at(ts,index) | clicked: true})
     else
-      cs = game.clicknum
+      cs = game.clicks
     end
 
-    game
+    game = game
     |> Map.put(:tiles, ts)
-    |> Map.put(:clicknum, cs)
+    |> Map.put(:clicks, cs)
 
     cond do
       gs == -1 -> Map.put(game, :guess, index)
       Kernel.abs(Enum.at(ts,gs).count - Enum.at(ts,index).count) == 8 ->
-        ts
+        ts = ts
         |> List.replace_at(index, %{Enum.at(ts,index) | done: true})
         |> List.replace_at(gs, %{Enum.at(ts,gs) | done: true})
       true ->
-        ts
+        ts = ts
         |> List.replace_at(index, %{Enum.at(ts,index) | clicked: false})
         |> List.replace_at(gs, %{Enum.at(ts,gs) | clicked: false})
     end
 
-    game
+    game = game
     |> Map.put(:tiles, ts)
     |> Map.put(:guess, gs)
-    |> Map.put(:clicknum, cs)
   end
 
   def flip_back(game) do
-    
     Map.put(game, :guess, -1)
   end
 

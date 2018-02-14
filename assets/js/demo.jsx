@@ -31,7 +31,7 @@ class Demo extends React.Component {
   initialState(){
     return{
       skel: [],
-      clicknum: 0,
+      clicks: 0,
       guess: -1,
       tiles:  [
         { name: "A", count: 0, clicked: false, done: false },
@@ -57,7 +57,14 @@ class Demo extends React.Component {
   gotView(view) {
     console.log("New view", view);
     this.setState(view.game);
-    if (view.game.guess != -1) {
+    let skel = view.game.skel;
+    let num = 0;
+    skel.forEach((d)=>{
+      if (d != "_") {
+        num += 1;
+      }
+    })
+    if (num % 2 != 1) {
       setTimeout(() => {
         this.flipBack(view.game)
      }, 500)
@@ -65,15 +72,15 @@ class Demo extends React.Component {
  }
 
  sendGuess(index) {
-    this.channel.push("guess", {index: index}).receive("ok", this.gotView.bind(this));
+    this.channel.push("guess", {"index": index}).receive("ok", this.gotView.bind(this));
   }
 
   flipBack(game) {
-    this.channel.push("flip_back", {game: game}).receive("ok", this.gotView.bind(this))
+    this.channel.push("flip_back", {"game": game}).receive("ok", this.gotView.bind(this))
   }
 
   replay() {
-    this.channel.push("restart", {"renew": true}).receive("ok", this.gotView.bind(this))
+    this.channel.push("replay", {"renew": true}).receive("ok", this.gotView.bind(this))
 }
 /*
   markItem(i) {
@@ -111,7 +118,7 @@ class Demo extends React.Component {
 render() {
   let tile_list = _.map(this.state.tiles, (obj,index) => {
     return <TileItem key={index} index={index} state = {this.state}
-      sendGuess={this.sendGuess.bind(this)} />;
+      onClick={() => this.sendGuess(index)} />;
   });
   return (
     <div>
@@ -120,10 +127,10 @@ render() {
       </div>
       <div>
         <h2>
-          Current Number of Clicks : {this.state.clicknum}
+          Current Number of Clicks : {this.state.clicks}
         </h2>
         <h2>
-          Current Score : {Math.round(30 - this.state.clicknum)}
+          Current Score : {Math.round(30 - this.state.clicks)}
         </h2>
       </div>
       <button type="button" className={"btn btn-primary"} onClick={() => this.replay()}>
@@ -140,7 +147,7 @@ function TileItem(props) {
 
   return (
   <div className="col-3 tilescell"
-    onClick={() => props.sendGuess(index)}>{state.skel[index]}</div>);
+    onClick={props.onClick}>{state.skel[index]}</div>);
 }
   /*
   let item = props.tiles[index];
