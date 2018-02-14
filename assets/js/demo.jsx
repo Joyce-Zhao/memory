@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
+import { Button, Container, Col, Row } from 'reactstrap';
+import _ from 'lodash';
 
 export default function run_demo(root,channel) {
   ReactDOM.render(<Demo channel={channel} />, root);
@@ -109,7 +110,7 @@ class Demo extends React.Component {
 
 render() {
   let tile_list = _.map(this.state.tiles, (index) => {
-    return <TileItem key={index} index={index}
+    return <TileItem key={index} index={index} state = {this.state}
       sendGuess={this.sendGuess.bind(this)} />;
   });
   return (
@@ -135,6 +136,17 @@ render() {
 
 function TileItem(props) {
   let index = props.index;
+  let state = props.state;
+
+  let item = _.map(state.skel, (xx, ii) => {
+    return <span style={{padding: "1ex"}} key={ii}>{xx}</span>;
+  });
+
+  return (
+  <div className="col-3 tilescell"
+    onClick={() => props.sendGuess(index)}>{item}</div>;);
+}
+  /*
   let item = props.tiles[index];
   if (!item.clicked) {
     return <div className="col-3 tilescell" onClick={() => props.sendGuess(index)}></div>;
@@ -143,6 +155,6 @@ function TileItem(props) {
       return <div className="col-3 tilescell">Done</div>;
       }
       else {
-        return <div className="col-3 tilescell" onClick={() => props.sendGuess(sendGuess)}>{item.name}</div>;
+        return <div className="col-3 tilescell" onClick={() => props.sendGuess(index)}>{item.name}</div>;
         }
-      }
+      }*/

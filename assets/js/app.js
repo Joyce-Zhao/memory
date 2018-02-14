@@ -26,16 +26,13 @@ import form_init from "./form";
 
 function init() {
   let root = document.getElementById('game');
-  if (!root) {
-    return;
+  if (root) {
+    let channel = socket.channel("games:" + window.gameName, {});
+    run_demo(root,channel);
   }
-
-  let channel = socket.channel("games:" + window.gameName, {});
-  run_demo(root,channel);
-
-  let register_page = document.getElementById('index-page')
-  if (register_page) {
-    form_init(register_page);
+  let index_page = document.getElementById('index-page')
+  if (index_page) {
+    form_init(index_page);
   }
 }
 
