@@ -30,39 +30,61 @@ end
     end
   end
 
+  @doc """
+  THere are the following two cases:
+    1. first click
+      - guess = index
+      - clicks+1
+      - tiles[index].clicked = true
+    2. second click
+      - 2.1 match
+        - guess = -1
+        - clicks+1
+        - tiles[guess].done = true
+        - tiles[index].done = true
+        - tiles[index].clicked = true
+      - 2.2 mismatch
+        - tiles[index].clicked = true
+        - tiles[guess].clicked = true
+        - guess = -1
+        - clicks + 1
+  """
   def guess(game, index) do
-    ts = game.tiles
-    gs = game.guess
-    if Enum.at(ts,index).clicked == false and Enum.at(ts,index).done == false do
-      cs = game.clicks + 1
-      ts = List.replace_at(ts, index, %{Enum.at(ts,index) | clicked: true})
-    else
-      cs = game.clicks
-    end
-
-    game = game
-    |> Map.put(:tiles, ts)
-    |> Map.put(:clicks, cs)
-
+    #IO.puts("{index = #{index}; game.guess = #{game.guess}")
     cond do
-      gs == -1 -> Map.put(game, :guess, index)
-      Kernel.abs(Enum.at(ts,gs).count - Enum.at(ts,index).count) == 8 ->
-        ts = ts
-        |> List.replace_at(index, %{Enum.at(ts,index) | done: true})
-        |> List.replace_at(gs, %{Enum.at(ts,gs) | done: true})
-      true ->
-        ts = ts
-        |> List.replace_at(index, %{Enum.at(ts,index) | clicked: false})
-        |> List.replace_at(gs, %{Enum.at(ts,gs) | clicked: false})
+      game.guess == -1 -> # first click?
+        %{guess: index, clicks: game.clicks+1,
+          tiles: List.replace_at(game.tiles, index, %{Enum.at(game.tiles, index) | clicked: true})
+        }
+      match?(game.tiles, game.guess, index) -> # match?
+        %{guess: -1, clicks: game.clicks+1,
+          tiles: game.tiles
+                 |> List.replace_at(game.guess, %{Enum.at(game.tiles, game.guess) | done: true})
+                 |> List.replace_at(index, %{Enum.at(game.tiles, index) | done: true, clicked: true})
+        }
+      true -> # mismatch
+        %{guess: -1, clicks: game.clicks+1,
+          tiles: game.tiles
+                  |> List.replace_at(game.guess, %{Enum.at(game.tiles, game.guess) | clicked: true})
+                  |> List.replace_at(index, %{Enum.at(game.tiles, index) | clicked: true})
+        }
     end
+  end
 
-    game = game
-    |> Map.put(:tiles, ts)
-    |> Map.put(:guess, gs)
+  @doc """
+  Tell whether the tiles at given indices match each other
+  """
+  defp match?(tiles, index1, index2) do
+    tile1 = tiles |> Enum.at(index1)
+    tile2 = tiles |> Enum.at(index2)
+
+    abs(tile1.count - tile2.count) == 8
   end
 
   def flip_back(game) do
-    Map.put(game, :guess, -1)
+    game
+    |> Map.put(:guess, -1)
+    |> Map.put(:tiles, Enum.map(game.tiles, fn(tile) -> %{tile | clicked: false} end))
   end
 
   def next_tiles do

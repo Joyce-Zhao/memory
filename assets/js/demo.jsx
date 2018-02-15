@@ -55,20 +55,23 @@ class Demo extends React.Component {
   }
 
   gotView(view) {
-    console.log("New view", view);
+    //console.log("New view", view);
     this.setState(view.game);
-    let skel = view.game.skel;
-    let num = 0;
-    skel.forEach((d)=>{
-      if (d != "_") {
-        num += 1;
+
+    let clicked_tiles = 0;
+    view.game.tiles.forEach((tile)=>{
+      if (tile.clicked == true) {
+        clicked_tiles += 1;
       }
     })
-    if (num % 2 != 1) {
+
+    console.log("clicked_tiles = ", clicked_tiles)
+    if (clicked_tiles == 2) {
       setTimeout(() => {
         this.flipBack(view.game)
      }, 500)
    }
+
  }
 
  sendGuess(index) {
